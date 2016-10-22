@@ -58,11 +58,15 @@ function extend() {
 
 ### 遍历对象或数组
 ```js
+/**
+ * @param {object|array} obj 遍历的对象
+ * @param {function}     fn  处理函数，将会接收到2个参数：value, key
+ */
 function each(obj, fn){
     
     if(typeof fn !== 'function') return;
     
-    if(isArray(obj)){
+    if(Array.isArray(obj)){
         Array.prototype.forEach.call(obj, fn);
     }else if(typeof obj === 'object'){
         Object.keys(obj).forEach(function(key){
