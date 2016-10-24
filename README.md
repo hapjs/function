@@ -75,3 +75,16 @@ function each(obj, fn){
     };
 }
 ```
+
+### 微型模板函数
+
+使用：`sub('hello {name}!', { name: 'world' });` ==> `hello world!`
+
+```js
+var sub = function(s, o) {
+    var SUBREGEX = /\{\s*([^|}]+?)\s*(?:\|([^}]*))?\s*\}/g; 
+    return s.replace ? s.replace(SUBREGEX, function (match, key) {
+        return undef(o[key]) ? match : o[key];
+    }) : s;
+};
+```
