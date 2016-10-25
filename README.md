@@ -88,3 +88,10 @@ var sub = function(s, o) {
     }) : s;
 };
 ```
+
+### isNumber
+```
+function isNumber(s){
+    return typeof s === 'number' || !!(s && !isNaN(s));
+};
+```
