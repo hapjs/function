@@ -89,9 +89,24 @@ var sub = function(s, o) {
 };
 ```
 
-### isNumber
+### 判断是否数字
 ```
 function isNumber(s){
     return typeof s === 'number' || !!(s && !isNaN(s));
 };
+```
+
+### 判断是否具有指定class
+```js
+function hasClass(node, cls, context){
+
+    // 同时支持Node和选择器
+    if(typeof node === 'string'){
+        node = (context || document).querySelector(node); 
+    };
+    
+    if(!node || typeof cls !== 'string') return false;
+    
+    return !!node.className.match(new RegExp('\\b' + cls + '\\b'));
+}
 ```
