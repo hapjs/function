@@ -110,3 +110,56 @@ function hasClass(node, cls, context){
     return !!node.className.match(new RegExp('\\b' + cls + '\\b'));
 }
 ```
+
+### 命名空间函数，对象的深层属性读写
+
+用法1：
+> namespace(window, 'location.href') 等价于  window.location.href
+
+用法2：
+> namespace(window, 'location.href', 'https://a.com') 等价于  window.location.href = 'https://a.com'
+
+```js
+function namespace(obj, ns, value) {
+  // 是否写入模式
+  var writeMode = arguments.length >= 3;
+
+  ns = ns.split(".");
+
+  if (writeMode) {
+    // 写入
+    let result = obj;
+    for (var i = 0; i < ns.length; i++) {
+      let name = ns[i];
+      if (i === ns.length - 1) {
+        // 叶子节点，赋值value
+        obj[name] = value;
+      } else {
+        // 空节点设置为{}
+        if (obj[name] + "" !== "[object Object]") {
+          obj[name] = {};
+        }
+        // 更新游标
+        obj = obj[name];
+      }
+    }
+    return result;
+  } else {
+    // 读取
+    for (var i = 0; i < ns.length; i++) {
+      let node = obj[ns[i]];
+      // 叶子属性
+      if (i === ns.length - 1) {
+        // 返回结果
+        return node;
+      } else if (node + "" === "[object Object]") {
+        // 更新游标
+        obj = node;
+      } else {
+        // 提前返回
+        return undefined;
+      }
+    }
+  }
+}
+```
