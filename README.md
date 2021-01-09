@@ -163,3 +163,36 @@ function namespace(obj, ns, value) {
   }
 }
 ```
+
+### 复制到剪贴板
+```js
+function copy(text, success) {
+  // 创建一个临时input元素
+  var el = document.createElement('input');
+  document.body.appendChild(el);
+  el.value = text + '';
+  el.focus();
+  el.select();
+
+  // 兼容iOS
+  // https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
+  var range = document.createRange();
+  var selection = window.getSelection();
+  el.contentEditable = true;
+  el.readOnly = false;
+  range.selectNodeContents(el);
+  selection.removeAllRanges();
+  selection.addRange(range);
+  el.setSelectionRange(0, 999999);
+  
+  // 拷贝并执行回调函数
+  if (document.execCommand('copy')) {
+    if (typeof success === 'function') {
+      success();
+    }
+  }
+
+  // 清理
+  document.body.removeChild(el);
+}
+```
