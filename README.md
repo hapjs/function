@@ -196,3 +196,20 @@ function copy(text, success) {
   document.body.removeChild(el);
 }
 ```
+
+### 版本号判断
+
+判断两个格式为 "10.5.3" 的版本号的大小
+
+如果ver大于targetVer，则返回true，否则返回false
+
+```js
+function compageVersion(ver, targetVer) {
+  targetVer = targetVer.split('.');
+  ver = ver.split('.');
+  return ver.every(function (v, i) {
+    var tv = targetVer[i];
+    return tv && (v >= tv);
+  });
+}
+```
