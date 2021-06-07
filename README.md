@@ -214,3 +214,12 @@ function compageVersion(ver, targetVer) {
   });
 }
 ```
+
+### 取URL参数
+
+取URL中的服务端参数，如果未取到则返回null
+```
+function getQueryString(name) {
+    return (location.search.match(new RegExp('[?&]' + name + '=([^&]*)')) || [])[1];
+}
+```
