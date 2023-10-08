@@ -206,11 +206,10 @@ function copy(text, success) {
 ```js
 function compageVersion(ver, targetVer) {
   targetVer = targetVer.split('.');
-  // 切割、遍历目标版本串
+  // 切割字符串，然后逐段比较
   return ver.split('.').every(function (v, i) {
-    var tv = targetVer[i];
-    // 每一段相应的当前版本都存在、并且大于目标版本
-    return !!tv && (parseInt(v) >= parseInt(tv));
+    var tv = targetVer[i] || '0';
+    return parseInt(v) >= parseInt(tv);
   });
 }
 ```
