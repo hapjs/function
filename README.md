@@ -201,7 +201,7 @@ function copy(text, success) {
 
 判断两个格式为 "10.5.3" 的版本号的大小
 
-如果ver大于targetVer，则返回true，否则返回false
+如果ver大于等于targetVer，则返回true，否则返回false
 
 ```js
 function compageVersion(ver, targetVer) {
